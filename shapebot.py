@@ -67,13 +67,10 @@ class Client(discord.Client):
 
     async def on_ready(self):
         print(f'{self.user} has connected to Discord!')
-        # await message.channel.send(newUserMessage) 
         self.Shape_Name = "Star"
         self.Shape_Backstory = "Star is an enthusiastic and bright computer programmer. Star enjoys building chat bots and talking to other shapes. Star is excited about developments in Artificial Intelligence and enjoys discussing them."
         self.vibe = "wholesome"
-        # self.conversation = False
         self.prev_prompt = ""
-        # self.reset = False
 
     async def on_message(self, message: discord.Message):
         print(f"{message.channel}: {message.author}: {message.author.name}: {message.content}")
