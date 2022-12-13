@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import os 
 import openai
 from discord.ext import commands
+import datetime 
 
 import pymongo
 from pymongo import MongoClient
@@ -50,6 +51,12 @@ For specific help on writing your backstory, visit https://school.circlelabs.xyz
 """
 
 
+def get_latest_entry(user):
+    item_details = collection_name.find({'author': user}).sort({'time':-1}).limit(1)
+    # item = dbname.collection_name.find({}).sort({_id:-1}).limit(1)
+    print(item_details)
+    return item_details 
+
 
 def make_prompt(name:str, descriptor: str, backstory:str, user: str, first_message:str) -> str:
     return f"""The following is a {descriptor} conversation between {user} and {name}.
@@ -74,7 +81,8 @@ class Client(discord.Client):
 
     async def on_message(self, message: discord.Message):
         print(f"{message.channel}: {message.author}: {message.author.name}: {message.content}")
-        
+        ts = datetime.datetime.now().timestamp()
+        print(ts)
 
         if str(message.content).lower() == "help" and message.author.name != "shapecreatorbot":
             await message.channel.send(newUserMessage)
@@ -117,7 +125,9 @@ class Client(discord.Client):
                                 "shape": str(self.Shape_Name),
                                 "backstory": str(self.Shape_Backstory),
                                 "vibe": str(self.vibe),
-                                "gpt3_prompt": str(self.prev_prompt)}
+                                "gpt3_prompt": str(self.prev_prompt),
+                                "time": ts
+                                }
                 print(insert_info)
                 collection_name.insert_one(insert_info)
 
@@ -143,7 +153,9 @@ class Client(discord.Client):
                                 "shape": str(self.Shape_Name),
                                 "backstory": str(self.Shape_Backstory),
                                 "vibe": str(self.vibe),
-                                "gpt3_prompt": str(self.prev_prompt)}
+                                "gpt3_prompt": str(self.prev_prompt),
+                                "time": ts
+                                }
 
                 collection_name.insert_one(insert_info)
 
