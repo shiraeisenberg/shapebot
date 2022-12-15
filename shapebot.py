@@ -31,7 +31,8 @@ COMPLETIONS_API_PARAMS = {
     "model": COMPLETIONS_MODEL,
 }
 
-newUserMessage = """
+
+help_message = """
 Welcome to Shape Creator! 
 Here, use the key words 
 "Name:" to give your shape a name,
@@ -85,7 +86,7 @@ class Client(discord.Client):
         print(ts)
 
         if str(message.content).lower() == "help" and message.author.name != "shapecreatorbot":
-            await message.channel.send(newUserMessage)
+            await message.channel.send(help_message)
 
         elif "name:" in str(message.content.lower()) and message.author.name != "shapecreatorbot":
             self.Shape_Name = str((message.content)[5:])
@@ -141,6 +142,7 @@ class Client(discord.Client):
                 await message.channel.send(answer)
                 
             elif message.author.name != "shapecreatorbot":
+                print("prompt length is: {}".format(len(self.prev_prompt)))
                 
                 self.prev_prompt += "\n{}: {}\n{}: ".format(message.author.name, message.content,self.Shape_Name)
                 print(self.prev_prompt)
