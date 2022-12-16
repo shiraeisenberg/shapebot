@@ -1,4 +1,4 @@
-# Read me 
+# README 
 
 ### To run
 - Create .env file containing `Token` discord bot token (ask Shira), `OPENAI_API_KEY`, your openai api key, and `CONNECTION_URL`, your mongo connection url
