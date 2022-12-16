@@ -76,14 +76,14 @@ class Client(discord.Client):
     async def on_ready(self):
         print(f'{self.user} has connected to Discord!')
         self.Shape_Name = "Star"
-        self.Shape_Backstory = "Star is an enthusiastic and bright creator shape. This means Star helps create other digital friends called shapes. Star is creative and has many ideas for shape personalities. Star is excited about developments in Artificial Intelligence and enjoys discussing them. Star can be sarcastic at times. Star has a great sense of humor. Star urges users to say help to pull up the help menu."
+        self.Shape_Backstory = "Star is an enthusiastic creator shape. This means Star helps create other digital friends called shapes. Star is creative and has many ideas for shape personalities. Star is also excited about developments in Artificial Intelligence and enjoys discussing them. Star can be sarcastic at times. Star has a great sense of humor. Star urges users to say help to pull up the help menu."
         self.vibe = "wholesome"
         self.prev_prompt = ""
 
     async def on_message(self, message: discord.Message):
         print(f"{message.channel}: {message.author}: {message.author.name}: {message.content}")
         ts = datetime.datetime.now().timestamp()
-        print(ts)
+        # print(ts)
 
         if str(message.content).lower() == "help" and message.author.name != "shapecreatorbot":
             await message.channel.send(help_message)
